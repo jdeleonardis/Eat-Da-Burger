@@ -1,46 +1,47 @@
-<h1>Burger</h1>
+<section class="main_body">
+    <div id="left_section">
+        <p class="headertext">Burgers to Eat</p>
+        {{!-- unless devoured means devoured = 0 or false --}}
+        <ul>
+          {{#each burgers}}
+            {{#unless devoured}}
+            <li>
+              <p>
+                {{this.id}}. {{this.burger_name}}
 
-<h2>Add a Burger</h2>
-<form id="burgeradder" class="button-size">
-  <textarea type="text" name="burger" id="burgername"></textarea>
-  <button type="submit">Save Burger!</button>
-</form>
+                <button data-burgerid="{{this.id}}" class="eatburger">Devour it!</button>
+              </p>
+            </li>
+            {{/unless}}
+          {{/each}}
+        </ul>
+    </div>
+    <div id="mid_section">
+        <img src="/assets/img/burger1.png" alt="burger drawing" width="200" height="200">
+        <p class="burgertext">Eat Da Burger!</p>
+        <form id="burgeradder" class="button-size">
+            <textarea type="text" name="burger" id="burgername"></textarea>
+            <button type="submit" id="saveburger">Save Burger!</button>
+        </form>
+        <p>Enter the name of a burger you want to eat and press the 'Save Burger!' button.</p>
+    </div>
+    <div id="right_section">
+        <p class="headertext">Burgers you Ate</p>            
+        {{!-- if devoured means devoured = 1 or true --}}
+        <ul>
+          {{#each burgers}}
+            {{#if devoured}}
+            <li>
+              <p>
+                {{this.id}}. {{this.burger_name}}
+              </p>
+            </li>
+            {{/if}}
+          {{/each}}
+        </ul>
+    </div>                
 
-<p>
-  Need to eat
-</p>
-
-{{!-- unless devoured means devoured = 0 or false --}}
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-    <li>
-      <p>
-        {{this.id}}. {{this.burger_name}}
-
-        <button data-burgerid="{{this.id}}" class="eatburger">Eat Burger!</button>
-      </p>
-    </li>
-    {{/unless}}
-  {{/each}}
-</ul>
-
-
-Eaten
-
-
-{{!-- if devoured means devoured = 1 or true --}}
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-    <li>
-      <p>
-        {{this.id}}. {{this.burger_name}}
-      </p>
-    </li>
-    {{/if}}
-  {{/each}}
-</ul>
+</section>
 
 
 <script type="text/javascript">
@@ -58,7 +59,7 @@ Eaten
      data: newBurger
     }).then(
       function() {
-        console.log("created new burger");
+       // console.log("created new burger");
       // Reload the page to get the updated list
         location.reload();
       }
@@ -68,21 +69,16 @@ Eaten
 
   $(".eatburger").on("click", function(event) {
     // Get the ID from the button.
-    // This is shorthand for $(this).attr("data-planid")
+    // This is shorthand for $(this).attr("data-burgerid")
     var id = $(this).data("burgerid");
-
-    var updatedBurger = {
-      //movie: $("#updatemovie [name=movie]").val().trim()
-      burger: "eat"
-    };
 
     // Send the PUT request.
     $.ajax("/api/burger/" + id, {
       type: "PUT",
-      data: updatedBurger
+      data: "eat"
     }).then(
       function() {
-        console.log("updated id ", id);
+        //console.log("updated id ", id);
         // Reload the page to get the updated list
         location.reload();
       }
