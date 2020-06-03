@@ -1,7 +1,7 @@
 // Dependencies
 var express = require("express");
 var exphbs = require("express-handlebars");
-var connection = require("./config/connection")
+//var connection = require("./config/connection")
 
 // Create an instance of the express app.
 var app = express();
@@ -21,46 +21,10 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-//route to index
-app.get("/", function(req, res) {
-  connection.query("SELECT * FROM burgers;", function(err, data) {
-    if (err) {
-      return res.status(500).end();
-    }
+// Import routes and give the server access to them.
+var routes = require("./controllers/burgers_controller.js");
 
-    res.render("index", { burgers: data });
-  });
-});
-
-// Create a new burger
-app.post("/api/burger", function(req, res) {  
-  connection.query("INSERT INTO burgers (burger_name) VALUES (?)", [req.body.burger], function(err, result) {
-    if (err) {
-      return res.status(500).end();
-    }
-
-    // Send back the ID of the new burger
-    res.json({ id: result.insertId });
-    //console.log({ id: result.insertId });
-  });
-});
-
-
-// eat the burger
-app.put("/api/burger/:id", function(req, res) {
-  connection.query("UPDATE burgers SET devoured = 1 WHERE id = ?", [req.params.id], function(err, result) {
-    if (err) {
-      // If an error occurred, send a generic server failure
-      return res.status(500).end();
-    }
-    else if (result.changedRows === 0) {
-      // If no rows were changed, then the ID must not exist, so 404
-      return res.status(404).end();
-    }
-    res.status(200).end();
-
-  });
-});
+app.use(routes);
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
