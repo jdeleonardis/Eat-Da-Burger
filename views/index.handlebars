@@ -5,13 +5,8 @@
         <ul>
           {{#each burgers}}
             {{#unless devoured}}
-            <li>
-              <p>
-                {{this.id}}. {{this.burger_name}}
-
-                <button data-burgerid="{{this.id}}" class="eatburger">Devour it!</button>
-              </p>
-            </li>
+              {{!-- partials --}}
+              {{> need-to-eat}}
             {{/unless}}
           {{/each}}
         </ul>
@@ -31,11 +26,8 @@
         <ul>
           {{#each burgers}}
             {{#if devoured}}
-            <li>
-              <p>
-                {{this.id}}. {{this.burger_name}}
-              </p>
-            </li>
+              {{!-- partials --}}            
+              {{> eaten}}
             {{/if}}
           {{/each}}
         </ul>
