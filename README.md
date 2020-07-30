@@ -22,7 +22,7 @@ run this project from https://jdeleonardis-burger-app.herokuapp.com/
 jdeleonardis
 
 ## Tests
-NA
+N/A
 
 ## License
 MIT
