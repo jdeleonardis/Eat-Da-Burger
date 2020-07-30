@@ -26,7 +26,7 @@ $(function() {
     // This is shorthand for $(this).attr("data-burgerid")
     var id = $(this).data("burgerid");
 
-    // Send the PUT request.
+    // Send the PUT request. 
     $.ajax("/api/burger/" + id, {
       type: "PUT",
       data: "eat"
