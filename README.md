@@ -2,7 +2,6 @@
 Eat Da Burger
 
 ## Table of Contents:
-- [Repository](#Repository)
 - [Description](#Description)
 - [Installation](#Installation)
 - [Usage](#Usage)
