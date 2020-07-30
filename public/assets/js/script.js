@@ -8,7 +8,7 @@ $(function() {
       burger: $("#burgername").val().trim()
     };    
     
-    // Send the POST request.
+    // Send the POST request.  
     $.ajax("/api/burger", {
      type: "POST",
      data: newBurger
